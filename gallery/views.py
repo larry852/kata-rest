@@ -33,3 +33,9 @@ def add_user_view(request):
 def show_public_images_user(request, user_id):
     images_list = Image.objects.filter(user=user_id, is_public=True)
     return HttpResponse(serializers.serialize("json", images_list))
+
+@csrf_exempt
+def login(request):
+    if request.method == 'POST':
+        return HttpResponse(status=401)
+    return HttpResponse(status=405)
