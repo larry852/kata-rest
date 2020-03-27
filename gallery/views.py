@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from .models import Image
 import json
+from django.contrib.auth import authenticate
 
 # Create your views here.
 @csrf_exempt
@@ -37,5 +38,14 @@ def show_public_images_user(request, user_id):
 @csrf_exempt
 def login(request):
     if request.method == 'POST':
-        return HttpResponse(status=401)
+        json_user = json.loads(request.body)
+        username = json_user['username']        
+        password = json_user['password']
+        
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=401)
+        
     return HttpResponse(status=405)
