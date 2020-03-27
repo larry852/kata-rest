@@ -28,3 +28,7 @@ def add_user_view(request):
         user_model.email = email
         user_model.save()
     return HttpResponse(serializers.serialize("json", [user_model]))
+
+@csrf_exempt
+def show_public_images_user(request, user_id):
+    return HttpResponse('[{"name": "test"}]')
