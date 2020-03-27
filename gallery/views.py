@@ -49,3 +49,7 @@ def login(request):
             return HttpResponse(status=401)
         
     return HttpResponse(status=405)
+
+@csrf_exempt
+def update_user(request):
+    return HttpResponse('[{"fields": {"username": "XXXX"}}]')
